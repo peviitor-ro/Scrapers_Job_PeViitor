@@ -36,7 +36,7 @@ def collect_data_from_sostenia():
             "country": "Romania",
             "city": location
         })
-    return lst_with_data,len(lst_with_data)
+    return lst_with_data
 
 
 @update_peviitor_api
