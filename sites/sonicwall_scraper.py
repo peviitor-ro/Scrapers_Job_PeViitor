@@ -49,7 +49,7 @@ def collect_data_from_sonicwall():
         location = sd.find_all('span', class_='location')[-1].text.strip()
 
         if 'Romania' in location:
-            lst_with_data.append(return_lst_dict(title=title, link=link, location=location.split()[0].replace(',','').replace('ș','s').replace('ț','t').replace('Bucharest', 'Bucuresti')))
+            lst_with_data.append(return_lst_dict(title=title, link=link, location=location.split()[0].replace(',','').replace('Bucharest', 'Bucuresti')))
     
     return lst_with_data
 
