@@ -27,12 +27,12 @@ def collect_data_from_seimaf():
     
     lst_with_data = []
     for sd in soup_data:
-        title = sd.find('h1').text
+        title = sd.find('h1').text.strip()
         link = sd.find('a')['href']
 
         lst_with_data.append({
             "id": str(uuid.uuid4()),
-            "job_title": title.replace('\n\t', ''),
+            "job_title": title,
             "job_link": link,
             "company": "Seimaf",
             "country": "Romania",
