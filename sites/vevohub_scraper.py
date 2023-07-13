@@ -54,5 +54,5 @@ data_list = collect_data_from_vevohub()
 scrape_and_update_peviitor(company_name, data_list)
 
 print(update_logo('Vevohub',
-                  "https://media.licdn.com/dms/image/D4D22AQFmw7ihZ9jz1g/feedshare-shrink_800/0/1686905268681?e=2147483647&v=beta&t=H1mx1OigYZxiMsGSmjOYPRbYIo_jhG4spE9WHAzU6Qk"
+                  "https://vevohub.com/wp-content/uploads/2023/05/FullLogo_Transparent_NoBuffer-1-1.png"
                   ))
