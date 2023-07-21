@@ -27,7 +27,7 @@ def collect_data_from_tradeville():
     lst_with_data =[]
     for sd in soup_data:
         link = 'https://tradeville.ro/landing/' + sd['href']
-        title = sd.find('div', class_='content col').find('h6', class_='title').text
+        title = sd.find('div', class_='content col').find('h6', class_='title').text.replace('â\x80\x93', '')
         location = sd.find('ul', class_='meta').text.split()[1].replace(',','')
 
         lst_with_data.append({
