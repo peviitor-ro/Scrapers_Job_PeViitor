@@ -20,7 +20,6 @@ def collect_data_from_sostenia():
     soup = BeautifulSoup(response.text, 'lxml')
 
     soup_data = soup.find_all('a', class_='text-decoration-none')
-    # print(len(soup_data))
 
     lst_with_data = []
     for sd in soup_data:
