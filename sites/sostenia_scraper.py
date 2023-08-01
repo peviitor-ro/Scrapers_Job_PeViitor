@@ -19,21 +19,22 @@ def collect_data_from_sostenia():
     response = requests.get(url='https://www.sostenia.ro/en/jobs', headers=DEFAULT_HEADERS)
     soup = BeautifulSoup(response.text, 'lxml')
 
-    soup_data = soup.find_all('a', class_='text-decoration-none')
+    soup_data = soup.find_all('div', 'col-lg')
 
-    lst_with_data = []
+
+    lst_with_data =[]
     for sd in soup_data:
-        link = "https://www.sostenia.ro" + sd['href']
-        title = sd.find('h3', class_='text-secondary mt0 mb4').text.strip()
-        location = sd.find('div', class_='d-flex align-items-baseline').find('span', class_='w-100 o_force_ltr d-block').text.split()[-3].replace('2', '')
+        for job in sd.find_all('a'):
+            link = 'https://www.sostenia.ro/' + job['href']
+            title = job.find('h3', class_='text-secondary mt0 mb4').text.strip()
 
-        lst_with_data.append({
-            "id": str(uuid.uuid4()),
-            "job_title": title,
-            "job_link": link,
-            "company": "Sostenia",
-            "country": "Romania",
-            "city": location
+            lst_with_data.append({
+                "id": str(uuid.uuid4()),
+                "job_title": title,
+                "job_link": link,
+                "company": "Sostenia",
+                "country": "Romania",
+                "city": "Romania"
         })
     return lst_with_data
 
