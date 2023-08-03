@@ -1,7 +1,7 @@
 #
 #
 #
-# Scraper for Ezugi 
+# Scraper for Ezugi Company
 # Link to company career page -> https://careers.ezugi.com/jobs
 #
 #
