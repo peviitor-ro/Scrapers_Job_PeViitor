@@ -16,7 +16,7 @@ import uuid
 
 def collect_data_from_simavi():
     '''
-    ... this function will collect data and will retrieve a list with jobs
+    ... this function will collect data and will retrieve a list with available jobs
     '''
 
     response = requests.get(url='https://www.simavi.ro/ro/cariere', headers=DEFAULT_HEADERS)
