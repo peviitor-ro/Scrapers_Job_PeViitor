@@ -14,7 +14,7 @@ import uuid
 
 def collect_data_from_accace() -> list[dict]:
     '''
-    this function will collect all data and will return a list with jobs
+    this function will collect all data and will return a list with available jobs
     '''
 
     response = requests.get(url='https://accace.ro/cariere/#oportunitati', headers=DEFAULT_HEADERS)
