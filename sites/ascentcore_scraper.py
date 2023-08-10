@@ -13,7 +13,7 @@ import uuid
 
 def collect_data_from_ascentcore():
     '''
-    ... this function will collect and will return a list with available jobs
+    ... this function will collect and will return a list with jobs
     '''
 
     response = requests.get(url='https://api.eu.lever.co/v0/postings/ascentcore?group=team&mode=json', headers=DEFAULT_HEADERS).json()
