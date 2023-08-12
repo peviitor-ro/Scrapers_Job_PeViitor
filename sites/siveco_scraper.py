@@ -17,7 +17,7 @@ import uuid
 
 def collect_data_from_siveco():
     '''
-    ... this function will collect data and will return a list with jobs
+    ... this function will collect data and will return a list with available jobs
     '''
 
     response = requests.get(url='http://www.siveco.ro/en/about-siveco-romania/careers', headers=DEFAULT_HEADERS)
