@@ -1,7 +1,7 @@
 #
 #
 #
-# Scraper for RolandBerger Company
+# Scraper for RolandBerger
 # Link to company career page -> https://careers.smartrecruiters.com/RolandBerger
 #
 #
