@@ -16,7 +16,7 @@ import uuid
 
 def collect_data_from_eeusoftware():
     '''
-    ... this function collects all data and returns a list with jobs
+    ... this function collects all data and returns a list with available jobs
     '''
 
     response = requests.get(url='https://www.eeusoft.ro/ro/category/cariere', headers=DEFAULT_HEADERS)
