@@ -13,7 +13,7 @@ import uuid
 
 def collect_data_from_hennlich():
     '''
-    ... this function will collect all data and will return a list with jobs
+    ... this function will collect all data and will return a list with available jobs
     '''
     response = requests.get(url='https://www.hennlich.ro/cariera/toate-locurile-de-munca.html', headers=DEFAULT_HEADERS)
     soup = BeautifulSoup(response.text, 'lxml')
