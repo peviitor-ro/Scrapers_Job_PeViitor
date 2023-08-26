@@ -1,7 +1,7 @@
 #
 #
 #
-# Scraper for Kenvue Company
+# Scraper for Kenvue 
 # Link to company career page -> https://kenvue.taleo.net/careersection/2/jobsearch.ftl?_gl=1*z3fgw4*_ga*OTYzMDQ4NzY4LjE2ODg0OTgxMjQ.*_ga_C9CY922645*MTY4ODQ5ODEyNC4xLjEuMTY4ODQ5ODE0Ni4zOS4wLjA.
 #
 #
