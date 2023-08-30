@@ -16,7 +16,7 @@ import uuid
 
 def collect_data_from_haynespro() -> list[dict]:
     '''
-    ... this function collects all data and returns a list with jobs
+    ... this function collects all data and returns a list with available jobs
     '''
 
     response = requests.get(url='https://www.haynespro.com/careers', headers=DEFAULT_HEADERS)
