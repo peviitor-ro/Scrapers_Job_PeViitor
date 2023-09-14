@@ -17,7 +17,7 @@ import uuid
 
 def construct_dict(title: str, link: str, city: str) -> dict:
     '''
-    ... this function will return a dictionary to avoid DRY
+    ... this function will return a dictionary to respect DRY
     '''
 
     dct = {
