@@ -17,7 +17,7 @@ import time
 
 def collect_data_from_engie() -> list[dict]:
     '''
-    this function will collect all data and will return a list with jobs
+    this function will collect all data and will return a list with available jobs
     '''
 
     page_jobs = 0
