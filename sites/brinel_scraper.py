@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 import uuid
 
 
-def collect_data_from_brinel() -> list[dict]:
+def collect_data_from_brinel():
     '''
     this function will collect all data and will return a list with available jobs
     '''
