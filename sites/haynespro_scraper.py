@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 #
 import uuid
 
-def collect_data_from_haynespro() -> list[dict]:
+def collect_data_from_haynespro():
     '''
     ... this function collects all data and returns a list with available jobs
     '''

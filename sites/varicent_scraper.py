@@ -49,7 +49,7 @@ def get_prepare_post_request() -> tuple:
     return url, headers
 
 
-def get_data_from_varicent() -> list[dict]:
+def get_data_from_varicent():
     '''
     ... will call the API using new headers
     '''

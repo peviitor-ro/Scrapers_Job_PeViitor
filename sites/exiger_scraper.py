@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 import uuid
 import time
 
-def collect_data_from_exiger() -> list[dict]:
+def collect_data_from_exiger():
     '''
     this function will collect all data and will return a list with jobs
     '''

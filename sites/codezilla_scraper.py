@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 import uuid
 
 
-def collect_data_from_codezilla() -> list[dict]:
+def collect_data_from_codezilla():
     '''
     ... this function collects all data and returns a list with jobs
     '''
