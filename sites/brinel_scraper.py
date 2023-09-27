@@ -53,5 +53,5 @@ data_list = collect_data_from_brinel()
 scrape_and_update_peviitor(company_name, data_list)
 
 print(update_logo('Brinel',
-                  "https://www.brinel.ro/typo3conf/ext/brinel_pack/Resources/Public/img/brinel_tagline.png"
+                  "https://www.brinel.ro/typo3temp/assets/_processed_/e/4/csm_logo_b9c1455a9c.png"
                   ))
