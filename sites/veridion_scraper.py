@@ -17,7 +17,7 @@ import uuid
 
 def collect_data_from_veridion():
     '''
-    ... this function collects all data and resturns a list with jobs
+    ... this function collects all data and resturns a list with available jobs
     '''
 
     response = requests.get('https://veridion.com/careers/', headers=DEFAULT_HEADERS)
