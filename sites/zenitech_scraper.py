@@ -1,5 +1,5 @@
 # Scraper for Zenitech Company
-# Link to company career page -> https://www.windsoft.ro/ro/cariere
+# Link to company career page -> https://careers.zenitech.co.uk/jobs
 #
 #
 #
@@ -36,7 +36,6 @@ def collect_data_from_zenitech():
         })
 
     return lst_with_data
-
 
 
 @update_peviitor_api
