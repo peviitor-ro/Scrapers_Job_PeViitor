@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 import uuid
 
 
-def collect_data_from_fnt():
+def collect_data_from_fnt() -> dict:
     '''
     ... this function will collect all data and will return a list with jobs
     '''
@@ -26,9 +26,8 @@ def collect_data_from_fnt():
 
     lst_with_data = []
     for sd in soup_data:
-        link = 'https://www.fntsoftware.com/' + sd.find('a')['href']
+        link = 'https://www.fntsoftware.com/' + sd.find('a', class_='link-liste__item')['href']
         title = sd.find('a').find('span', class_='link-liste__text').text
-
 
         lst_with_data.append({
             "id": str(uuid.uuid4()),
@@ -36,10 +35,11 @@ def collect_data_from_fnt():
             "job_link": link,
             "company": "FntSoftware",
             "country": "Romania",
-            "city": "Timisoara"
+            "city": "Romania"
         })
 
     return lst_with_data
+
 
 
 @update_peviitor_api
