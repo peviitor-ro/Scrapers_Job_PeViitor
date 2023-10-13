@@ -26,6 +26,7 @@ def collect_data_from_veridion():
 
     soup_data = soup.find_all('div', class_='career-inner')
 
+
     lst_with_data = []
     for sd in soup_data:
         title = sd.find('h2', class_='fw-bold').text
