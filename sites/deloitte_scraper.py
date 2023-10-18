@@ -41,7 +41,7 @@ def config_requests_html() -> HTMLSession:
 
 def collect_data_from_delloite():
     '''
-    ... this function will collect all data and will return a list with jobs
+    ... this function will collect all data and will return a list with available jobs
     '''
 
     session = config_requests_html()
