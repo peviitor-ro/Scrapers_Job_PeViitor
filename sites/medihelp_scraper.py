@@ -14,7 +14,7 @@ import uuid
 
 def collect_data_from_medihelp():
     '''
-    this function will collect all data and will return a list with available jobs
+    this function will collect all data and will return a list with  jobs
     '''
 
     response = requests.get(url='https://www.medihelp.ro/misiunea-medihelp/cariere', headers=DEFAULT_HEADERS)
