@@ -13,7 +13,7 @@ import uuid
 #
 def collect_data_from_voxility():
     '''
-    ... this function will collect all data and will return a list with jobs
+    ... this function will collect all data and will return a list with available jobs
     '''
 
     response = requests.get(url='https://www.voxility.com/jobs', headers=DEFAULT_HEADERS)
