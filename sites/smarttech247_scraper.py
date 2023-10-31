@@ -13,7 +13,7 @@ import uuid
 #
 def collect_data_from_smarttech():
     '''
-    ... this function will collect all data and will return a list with available jobs
+    ... this function will collect all data and will return a list with  jobs
     '''
 
     response = requests.get(url='https://www.smarttech247.com/careers/', headers=DEFAULT_HEADERS)
