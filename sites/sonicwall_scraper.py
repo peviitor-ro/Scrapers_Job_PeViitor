@@ -34,7 +34,7 @@ def return_lst_dict(title: str, link: str, location: str) -> dict:
 # let's get scrape the data!
 def collect_data_from_sonicwall():
     '''
-    ... this function will collect data and will return a list with jobs
+    ... this function will collect data and will return a list with available jobs
     '''
 
     response = requests.get(url='https://boards.greenhouse.io/sonicwall', headers=DEFAULT_HEADERS)
