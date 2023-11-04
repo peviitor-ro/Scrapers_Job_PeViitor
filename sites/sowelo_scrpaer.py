@@ -33,7 +33,7 @@ def return_lst_dict(title: str, link: str, city: str) -> dict:
 
 def collect_data_from_sowelo():
     '''
-    ... this function will collect data and will return a listwith jobs
+    ... this function will collect data and will return a list with jobs
     '''
 
     response = requests.get(url='https://soweloconsulting.applytojob.com/apply/jobs', headers=DEFAULT_HEADERS)
