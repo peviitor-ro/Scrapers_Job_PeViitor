@@ -23,38 +23,38 @@ def collect_data_from_codezilla():
     response = requests.get('https://codezilla.global/jobs', headers=DEFAULT_HEADERS)
     soup = BeautifulSoup(response.text, 'lxml')
 
-    soup_data = soup.find_all('div', class_='JobListing_certified_inner__naKv8 certified')
+    # soup_data = soup.find_all('div', class_='JobListing_certified_inner__naKv8 certified')
 
-    lst_with_data = []
-    for sd in soup_data:
-        title = sd.find('h3').text
-        link = "https://codezilla.global" + sd.find('a')['href']
+    # lst_with_data = []
+    # for sd in soup_data:
+    #     title = sd.find('h3').text
+    #     link = "https://codezilla.global" + sd.find('a')['href']
 
-        lst_with_data.append({
-            "id": str(uuid.uuid4()),
-            "job_title": title,
-            "job_link": link,
-            "company": "Codezilla",
-            "country": "Romania",
-            "city": "Remote"
-        })
+    #     lst_with_data.append({
+    #         "id": str(uuid.uuid4()),
+    #         "job_title": title,
+    #         "job_link": link,
+    #         "company": "Codezilla",
+    #         "country": "Romania",
+    #         "city": "Remote"
+    #     })
 
-    return lst_with_data
+    # return lst_with_data
 
 
 @update_peviitor_api
-def scrape_and_update_peviitor(company_name, data_list):
-    """
-    Update data on peviitor API!
-    """
+# def scrape_and_update_peviitor(company_name, data_list):
+#     """
+#     Update data on peviitor API!
+#     """
 
-    return data_list
+#     return data_list
 
 
-company_name = 'Codezilla'
-data_list = collect_data_from_codezilla()
-scrape_and_update_peviitor(company_name, data_list)
+# company_name = 'Codezilla'
+# data_list = collect_data_from_codezilla()
+# scrape_and_update_peviitor(company_name, data_list)
 
-print(update_logo('Codezilla',
-                  "https://api.codezilla.ro/uploads/logo_black_03bc39c300.png"
-                  ))
+# print(update_logo('Codezilla',
+#                   "https://api.codezilla.ro/uploads/logo_black_03bc39c300.png"
+#                   ))
