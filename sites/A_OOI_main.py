@@ -11,13 +11,7 @@ exclude = ['__init__.py',
            'A_OO_get_post_soup_update_dec.py',
            'A_OOI_main.py',
            '000_delete_api_data.py',
-           'L_00_logo.py',
-           'connect44_scraper.py',
-           'proctergamble_scraper.py',
-           'globallogic_scraper.py',
-           'bittnet_scraper.py'
-           'exiger_scraper.py',
-           'varicent_scraper.py',]
+           'L_00_logo.py',]
 
 path = os.path.dirname(os.path.abspath(__file__))
 

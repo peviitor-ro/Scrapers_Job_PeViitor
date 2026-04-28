@@ -1,17 +1,21 @@
 #
 #
 # Scraper for Tradeville Company
-# Link to company career page -> https://tradeville.ro/landing/jobs
+# Link to company career page -> https://tradeville.ro/cariere
 #
 #
 #
 from A_OO_get_post_soup_update_dec import DEFAULT_HEADERS, update_peviitor_api
 from L_00_logo import update_logo
 #
+import re
 import requests
-from bs4 import BeautifulSoup
-#
-import uuid
+
+from _county import get_county
+
+
+CAREERS_URL = 'https://tradeville.ro/cariere'
+PROXY_URL = 'https://r.jina.ai/http://tradeville.ro/cariere'
 
 
 def collect_data_from_tradeville():
@@ -19,24 +23,32 @@ def collect_data_from_tradeville():
     ... this function will collect all data and will return a list with jobs
     '''
 
-    response = requests.get(url='https://tradeville.ro/landing/jobs', headers=DEFAULT_HEADERS)
-    soup = BeautifulSoup(response.text, 'lxml')
-
-    soup_data = soup.find_all('a', class_='job-list row')
+    response = requests.get(PROXY_URL, headers=DEFAULT_HEADERS)
+    soup_data = re.findall(r'^##\s+(.+)$', response.text, re.MULTILINE)
 
     lst_with_data =[]
-    for sd in soup_data:
-        link = 'https://tradeville.ro/landing/' + sd['href']
-        title = sd.find('div', class_='content col').find('h6', class_='title').text.replace('â\x80\x93', '')
-        location = sd.find('ul', class_='meta').text.split()[1].replace(',','')
+    for title in soup_data:
+        title = title.strip().strip('*')
+
+        if title in {'Cine este TradeVille?', 'De ce sa deveniti colegul nostru?'}:
+            break
+
+        if ',' not in title:
+            continue
+
+        city_text = title.split(',')[-1].strip().strip('*').replace('București', 'Bucuresti')
+        cities = [city_text]
+        counties = list(dict.fromkeys(
+            county for county in (get_county(city) for city in cities) if county
+        ))
 
         lst_with_data.append({
-            "id": str(uuid.uuid4()),
             "job_title": title,
-            "job_link": link,
+            "job_link": CAREERS_URL,
             "company": "Tradeville",
             "country": "Romania",
-            "city": location
+            "city": cities,
+            "county": counties
         })
 
     return lst_with_data
@@ -51,11 +63,11 @@ def scrape_and_update_peviitor(company_name, data_list):
     return data_list
 
 
-company_name = 'Tradeville'
-data_list = collect_data_from_tradeville()
-scrape_and_update_peviitor(company_name, data_list)
+if __name__ == '__main__':
+    company_name = 'Tradeville'
+    data_list = collect_data_from_tradeville()
+    scrape_and_update_peviitor(company_name, data_list)
 
-print(update_logo('Tradeville',
-                  "https://tradeville.ro/landing/job-assets/images/logo/logo_tradeville.png"
-                  ))
-
+    print(update_logo('Tradeville',
+                      "https://tradeville.ro/landing/job-assets/images/logo/logo_tradeville.png"
+                      ))

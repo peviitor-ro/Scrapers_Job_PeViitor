@@ -10,11 +10,10 @@ import requests
 import os  # I do not have API KEY
 #
 import json
-import time
 
 
 DEFAULT_HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_8_8; like Mac OS X) AppleWebKit/535.14 (KHTML, like Gecko) Chrome/49.0.3028.253 Mobile Safari/603.0',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
     'Accept-Language': 'en-US,en;q=0.5',
     'Refer': 'https://google.com',
     'DNT': '1'
@@ -31,33 +30,39 @@ def update_peviitor_api(original_function):
         company_name, data_list = args
         #
         API_KEY = os.environ.get('API_KEY')
-        
-        CLEAN_URL = 'https://api.peviitor.ro/v4/clean/'
 
-        clean_header = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'apikey': API_KEY
-            }
-
-        clean_request = requests.post(CLEAN_URL, headers=clean_header, data={'company': company_name})
-
-        time.sleep(0.2)
-
+        token = get_token()
         post_header = {
             'Content-Type': 'application/json',
-            'apikey': API_KEY
-            }
+            'Authorization': f'Bearer {token}',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
+        }
+        validator_endpoint = 'https://api.laurentiumarian.ro/jobs/add/'
 
-        post_request_to_server = requests.post('https://api.peviitor.ro/v4/update/', headers=post_header, data=json.dumps(data_list))
-        print(json.dumps(data_list, indent=4)) 
+        res = requests.post(validator_endpoint,
+                            json=data_list, headers=post_header)
+        print(json.dumps(data_list, indent=4))
 
-        # don't delete this lines if you want to see the graph on scraper's page
-        file = company_name.lower() + '_scraper.py'
-        data = {'data': len(data_list)}
-        dataset_url = f'https://dev.laurentiumarian.ro/dataset/Scrapers_Job_PeViitor/{file}/'
-        requests.post(dataset_url, json=data)
-        ########################################################
+        if res.status_code == 200:
+            print(
+                f"Data for {company_name} updated successfully on Peviitor API!")
+        else:
+            print(
+                f"Failed to update data for {company_name} on Peviitor API. Status code: {res.status_code}, Response: {res.text}")
 
         return original_function(*args, **kwargs)
 
     return new_function
+
+
+def get_token():
+    token_endpoint = 'https://api.laurentiumarian.ro/get_token'
+    email = os.environ.get('API_KEY')
+
+    token = requests.post(token_endpoint, json={
+        "email": email
+    }, headers={
+        "Content-Type": "application/json",
+    })
+
+    return token.json()['access']

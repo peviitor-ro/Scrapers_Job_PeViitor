@@ -12,7 +12,8 @@ from L_00_logo import update_logo
 import requests
 from bs4 import BeautifulSoup
 #
-import uuid
+
+from _county import get_county
 
 
 def collect_data_from_tenaris():
@@ -26,17 +27,23 @@ def collect_data_from_tenaris():
 
     lst_with_data = []
     for sd in soup_data:
+        city_text = sd.find('h3', class_='opening-title').text.split(',')[0].strip()
+        cities = [city_text]
+        counties = list(dict.fromkeys(
+            county for county in (get_county(city) for city in cities) if county
+        ))
+
         for job in sd.find_all('li', class_='opening-job job column wide-7of16 medium-1of2'):
-            link = job.find('a', class_='link--block details')['href']
-            title = job.find('h4', class_='details-title job-title link--block-target').text
+            link = job.find('a', class_='link--block details js-job-ad-link')['href']
+            title = job.find('h4', class_='details-title job-title link--block-target').text.strip()
 
             lst_with_data.append({
-                "id": str(uuid.uuid4()),
                 "job_title": title,
                 "job_link": link,
                 "company": "tenaris",
                 "country": "Romania",
-                "city": "Romania"
+                "city": cities,
+                "county": counties
             })
 
     return lst_with_data
@@ -51,10 +58,11 @@ def scrape_and_update_peviitor(company_name, data_list):
     return data_list
 
 
-company_name = 'tenaris'
-data_list = collect_data_from_tenaris()
-scrape_and_update_peviitor(company_name, data_list)
+if __name__ == '__main__':
+    company_name = 'tenaris'
+    data_list = collect_data_from_tenaris()
+    scrape_and_update_peviitor(company_name, data_list)
 
-print(update_logo('tenaris',
-                  "https://logowik.com/content/uploads/images/tenaris9552.logowik.com.webp"
-                  ))
+    print(update_logo('tenaris',
+                      "https://logowik.com/content/uploads/images/tenaris9552.logowik.com.webp"
+                      ))
