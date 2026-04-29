@@ -28,9 +28,6 @@ def update_peviitor_api(original_function):
 
     def new_function(*args, **kwargs):
         company_name, data_list = args
-        #
-        API_KEY = os.environ.get('API_KEY')
-
         token = get_token()
         post_header = {
             'Content-Type': 'application/json',
