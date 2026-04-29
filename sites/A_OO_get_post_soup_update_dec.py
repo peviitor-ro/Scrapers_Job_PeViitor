@@ -10,6 +10,7 @@ import requests
 import os  # I do not have API KEY
 #
 import json
+from requests.exceptions import JSONDecodeError
 
 
 DEFAULT_HEADERS = {
@@ -29,6 +30,12 @@ def update_peviitor_api(original_function):
     def new_function(*args, **kwargs):
         company_name, data_list = args
         token = get_token()
+        print(json.dumps(data_list, indent=4))
+
+        if token is None:
+            print(f"Data for {company_name} collected successfully (API unavailable, data printed above).")
+            return original_function(*args, **kwargs)
+
         post_header = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {token}',
@@ -38,7 +45,6 @@ def update_peviitor_api(original_function):
 
         res = requests.post(validator_endpoint,
                             json=data_list, headers=post_header)
-        print(json.dumps(data_list, indent=4))
 
         if res.status_code == 200:
             print(
@@ -62,4 +68,8 @@ def get_token():
         "Content-Type": "application/json",
     })
 
-    return token.json()['access']
+    try:
+        return token.json()['access']
+    except JSONDecodeError:
+        print(f"Warning: Failed to get token. API returned: {token.text}")
+        return None
