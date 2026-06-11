@@ -8,6 +8,9 @@ from L_00_logo import update_logo
 #
 import requests
 from bs4 import BeautifulSoup
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 #
 
 from _county import get_county
@@ -16,7 +19,7 @@ def collect_data_from_foundever():
     '''
     ... this function will collect all data and will return a list with available jobs
     '''
-    response = requests.get(url='https://jobs.foundever.com/go/Jobs-in-Romania/9236600/', headers=DEFAULT_HEADERS)
+    response = requests.get(url='https://jobs.foundever.com/go/Jobs-in-Romania/9236600/', headers=DEFAULT_HEADERS, verify=False)
     soup = BeautifulSoup(response.text, 'lxml')
 
     soup_data = soup.find_all('tr', class_='data-row')
