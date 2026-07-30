@@ -30,7 +30,11 @@ def update_peviitor_api(original_function):
     def new_function(*args, **kwargs):
         company_name, data_list = args
         token = get_token()
-        print(json.dumps(data_list, indent=4))
+
+        if not data_list:
+            print(f"[NO JOBS] {company_name}")
+        else:
+            print(json.dumps(data_list, indent=4))
 
         if token is None:
             print(f"Data for {company_name} collected successfully (API unavailable, data printed above).")
