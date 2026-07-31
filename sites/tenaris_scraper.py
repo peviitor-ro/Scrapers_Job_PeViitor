@@ -35,7 +35,7 @@ def collect_data_from_tenaris():
 
         for job in sd.find_all('li', class_='opening-job job column wide-7of16 medium-1of2'):
             link = job.find('a', class_='link--block details js-job-ad-link')['href']
-            title = job.find('h4', class_='details-title job-title link--block-target').text.strip()
+            title = job.find('h4', class_=['details-title', 'job-title', 'link--block-target']).text.strip()
 
             lst_with_data.append({
                 "job_title": title,
