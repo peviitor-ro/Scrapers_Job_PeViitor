@@ -12,6 +12,12 @@ import os  # I do not have API KEY
 import json
 from requests.exceptions import JSONDecodeError
 
+from A_OO_empty_jobs_repair import (
+    NO_JOBS_MARKER,
+    clear_cooldown_for_calling_scraper,
+    maybe_repair_empty_jobs_output,
+)
+
 
 DEFAULT_HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
@@ -29,15 +35,26 @@ def update_peviitor_api(original_function):
 
     def new_function(*args, **kwargs):
         company_name, data_list = args
+
+        # nu posta o lista goala: ar sterge joburile companiei de pe API
+        if not data_list:
+            print(f"{company_name} (0 joburi) - nicio pozitie disponibila")
+            print(f"Data for {company_name} - no jobs found.")
+            # markerul se tipareste inainte de hook: repararea reusita se
+            # incheie cu SystemExit(0) si ar suprima orice print de dupa el
+            print(f"{NO_JOBS_MARKER} {company_name}", flush=True)
+            maybe_repair_empty_jobs_output(company_name)
+            return original_function(*args, **kwargs)
+
+        # scraperul a intors joburi reale, deci iese din cooldown
+        clear_cooldown_for_calling_scraper()
+
         token = get_token()
 
-        if not data_list:
-            print(f"[NO JOBS] {company_name}")
-        else:
-            print(json.dumps(data_list, indent=4))
-
         if token is None:
-            print(f"Data for {company_name} collected successfully (API unavailable, data printed above).")
+            print(json.dumps(data_list, indent=4))
+            print(
+                f"Data for {company_name} collected successfully (API unavailable, data printed above).")
             return original_function(*args, **kwargs)
 
         post_header = {
@@ -49,6 +66,8 @@ def update_peviitor_api(original_function):
 
         res = requests.post(validator_endpoint,
                             json=data_list, headers=post_header)
+
+        print(json.dumps(data_list, indent=4))
 
         if res.status_code == 200:
             print(

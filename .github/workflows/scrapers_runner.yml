@@ -16,6 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Restore empty-jobs cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache
+          key: empty-jobs-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: empty-jobs-${{ runner.os }}-
+
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
@@ -34,11 +41,19 @@ jobs:
           sudo install "$OPENCODE_TMP_DIR/opencode" /usr/local/bin/opencode
           rm -rf "$OPENCODE_TMP_DIR"
 
-      - name: All scrapers runs
+      - name: All scrapers runs (detect-only, empty jobs recorded to cache)
         env:
           API_KEY: ${{ secrets.API_KEY }}
+          OPENCODE_EMPTY_JOBS_REPAIR_DISABLED: '1'
         run: |
           python sites/A_OOI_main.py
+
+      - name: Save empty-jobs cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache
+          key: empty-jobs-${{ runner.os }}-${{ github.run_id }}
 
       - name: Commit and push changes
         run: |
